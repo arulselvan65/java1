@@ -1164,27 +1164,64 @@ const GQS = [
   { code: `try {\n    int x = 10 / 0;\n} catch (ArithmeticException e) {\n    System.out.print("A");\n} finally {\n    System.out.print("B");\n}`, opts: ["A", "B", "AB", "Error"], ans: 2, expl: "10/0 throws ArithmeticException, caught by catch (prints A). Finally always runs (prints B). Output: AB." }
 ];
 let gqIdx = 0, gqScore = 0;
+let gqAnswers = {}; // Track answered questions: {qIdx: {selected: ansIdx, correct: bool}}
 function renderGQ() {
   const q = GQS[gqIdx]; if (!q) return;
   document.getElementById('gq-num').textContent = `Q ${gqIdx + 1} / ${GQS.length}`;
   document.getElementById('gq-score').textContent = `Score: ${gqScore}`;
+  
+  const answered = gqAnswers[gqIdx];
+  const optionsHTML = q.opts.map((o, i) => {
+    let classes = 'q-opt';
+    if (answered) {
+      classes += ' disabled';
+      if (i === answered.selected) classes += answered.correct ? ' correct' : ' wrong';
+      else if (i === q.ans) classes += ' correct';
+    }
+    return `<div class="${classes}" onclick="answerGQ(${i},this)"><span class="q-letter">${String.fromCharCode(65 + i)}</span><span>${esc(o.replace(/\n/g, ' \u21B5 '))}</span></div>`;
+  }).join('');
+  
   document.getElementById('gq-card').innerHTML = `
     <div class="predict-code">${esc(q.code)}</div>
     <div style="font-weight:600;color:#fff;margin-bottom:10px;">What is the output?</div>
-    ${q.opts.map((o, i) => `<div class="q-opt" onclick="answerGQ(${i},this)"><span class="q-letter">${String.fromCharCode(65 + i)}</span><span>${esc(o.replace(/\n/g, ' \u21B5 '))}</span></div>`).join('')}
-    <div class="q-expl" id="gq-expl">${q.expl}</div>`;
+    ${optionsHTML}
+    <div class="q-expl" id="gq-expl" style="${answered ? 'display:block;' : 'display:none;'}">${q.expl}</div>
+    <div class="gq-nav" id="gq-nav" style="display:flex; margin-top:16px;gap:10px;">
+      <button class="btn btn-s" onclick="prevQuestion()" ${gqIdx === 0 ? 'disabled' : ''}>← Previous</button>
+      <button class="btn btn-s" onclick="nextQuestion()" ${!answered ? 'disabled' : (gqIdx === GQS.length - 1 ? 'disabled' : '')}>Next →</button>
+    </div>`;
 }
 function answerGQ(i, el) {
   const q = GQS[gqIdx]; if (!q) return;
+  if (gqAnswers[gqIdx]) return; // Already answered
+  
   const opts = document.querySelectorAll('#gq-card .q-opt');
   opts.forEach(o => o.classList.add('disabled'));
-  if (i === q.ans) { el.classList.add('correct'); gqScore++; quizScore += 10; }
+  
+  const isCorrect = i === q.ans;
+  gqAnswers[gqIdx] = { selected: i, correct: isCorrect };
+  
+  if (isCorrect) { el.classList.add('correct'); gqScore++; quizScore += 10; }
   else { el.classList.add('wrong'); opts[q.ans].classList.add('correct'); }
-  document.getElementById('gq-expl').classList.add('show');
+  
+  const expl = document.getElementById('gq-expl');
+  expl.style.display = 'block';
+  expl.classList.add('show');
+  
+  // Enable Next button after answering
+  const nextBtn = document.querySelector('#gq-nav .btn:nth-child(2)');
+  if (nextBtn) nextBtn.disabled = gqIdx === GQS.length - 1;
+  
   saveProgress();
-  setTimeout(() => { if (gqIdx < GQS.length - 1) { gqIdx++; renderGQ(); } else { toast('Quiz complete! Score: ' + gqScore + '/' + GQS.length); } }, 1800);
 }
-function resetGuess() { gqIdx = 0; gqScore = 0; renderGQ(); }
+function prevQuestion() {
+  if (gqIdx > 0) { gqIdx--; renderGQ(); }
+}
+function nextQuestion() {
+  if (gqIdx < GQS.length - 1) { gqIdx++; renderGQ(); } 
+  else { toast('Quiz complete! Score: ' + gqScore + '/' + GQS.length); }
+}
+function resetGuess() { gqIdx = 0; gqScore = 0; gqAnswers = {}; renderGQ(); }
 
 // ------------------------------
 //  CODING PRACTICE
