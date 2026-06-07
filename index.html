@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit I — Foundations of Java | Interactive Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+</head>
+<body>
+
+<!-- ═══════ NAVBAR ═══════ -->
+<nav class="navbar" id="navbar">
+  <div class="navbar-brand">
+    <div class="navbar-logo">J</div>
+    <div>
+      <div class="navbar-title">Java Learning</div>
+      <div class="navbar-sub">Unit I — Foundations of Java</div>
+    </div>
+  </div>
+  <div class="navbar-actions">
+    <div class="nav-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" placeholder="Search topics..." id="nav-search-input" oninput="performSearch(this.value)">
+    </div>
+    <div class="nav-avatar" title="Student Profile">S</div>
+  </div>
+</nav>
+
+<button class="hamburger" id="hamburger" onclick="toggleSidebar()">&#9776;</button>
+
+<!-- ═══════ SIDEBAR ═══════ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-head">
+    <div class="sidebar-tag">Unit I</div>
+    <div class="sidebar-title">Foundations of Java</div>
+    <div class="sidebar-sub">Interactive Learning Dashboard</div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-sec">Overview</div>
+    <div class="nav-i active" onclick="go('dashboard',this)"><span class="nav-ico">&#9638;</span> Dashboard</div>
+    <div class="nav-i" onclick="go('lessonplan',this)"><span class="nav-ico">&#9776;</span> Lesson Plan</div>
+
+    <div class="nav-sec">Learn</div>
+    <div class="nav-i" onclick="go('topics',this)"><span class="nav-ico">&#9636;</span> Topics</div>
+    <div class="nav-i" onclick="go('notes',this)"><span class="nav-ico">&#9998;</span> Notes</div>
+    <div class="nav-i" onclick="go('mindmap',this)"><span class="nav-ico">&#9672;</span> Mind Map</div>
+    <div class="nav-i" onclick="go('visualize',this)"><span class="nav-ico">&#9670;</span> Visualizations</div>
+    <div class="nav-i" onclick="go('flowchart',this)"><span class="nav-ico">&#9674;</span> Flowcharts</div>
+    <div class="nav-i" onclick="go('classdiagram',this)"><span class="nav-ico">&#9635;</span> Class Diagrams</div>
+
+    <div class="nav-sec">Practice</div>
+    <div class="nav-i" onclick="go('programs',this)"><span class="nav-ico">&#9654;</span> Programs <span class="nav-badge">Run</span></div>
+    <div class="nav-i" onclick="go('guessoutput',this)"><span class="nav-ico">&#8853;</span> Guess Output</div>
+    <div class="nav-i" onclick="go('coding',this)"><span class="nav-ico">&#8862;</span> Coding Practice</div>
+    <div class="nav-i" onclick="go('debug',this)"><span class="nav-ico">&#8856;</span> Debug Code</div>
+    <div class="nav-i" onclick="go('flashcards',this)"><span class="nav-ico">&#9733;</span> Flash Cards</div>
+
+    <div class="nav-sec">Apply</div>
+    <div class="nav-i" onclick="go('scenario',this)"><span class="nav-ico">&#8226;</span> Scenario Questions</div>
+    <div class="nav-i" onclick="go('interview',this)"><span class="nav-ico">&#9679;</span> Interview Topics</div>
+    <div class="nav-i" onclick="go('projects',this)"><span class="nav-ico">&#9673;</span> Projects</div>
+  </nav>
+  <div class="sidebar-foot">
+    <div class="prog-label"><span>Progress</span><span id="prog-pct">0%</span></div>
+    <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+  </div>
+</aside>
+
+<!-- ═══════ MAIN ═══════ -->
+<main class="main">
+
+<!-- ════════════════ DASHBOARD ════════════════ -->
+<section class="page active" id="pg-dashboard">
+  <div class="pg-head">
+    <div class="pg-tag">// Dashboard</div>
+    <div class="pg-title">Foundations of Java</div>
+    <div class="pg-desc">Your interactive learning hub for Unit I. Track progress, practice code, visualize concepts, and master Java fundamentals.</div>
+  </div>
+  <div class="stat-row">
+    <div class="stat-c"><div class="stat-v">10</div><div class="stat-l">Topics</div></div>
+    <div class="stat-c"><div class="stat-v">6</div><div class="stat-l">Lecture Hours</div></div>
+    <div class="stat-c"><div class="stat-v" id="s-done">0</div><div class="stat-l">Completed</div></div>
+    <div class="stat-c"><div class="stat-v" id="s-quiz">0</div><div class="stat-l">Quiz Score</div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;">
+    <div class="unit-card" style="--u-color:var(--accent)" onclick="go('lessonplan',document.querySelectorAll('.nav-i')[1])">
+      <div class="u-num">Unit I</div>
+      <div class="u-title">OOP &amp; Java Basics</div>
+      <div class="u-topics">OOP paradigms, Features, Buzzwords, JVM, JDK, Classes, Data Types, Variables, Operators, Control Statements, Arrays, I/O</div>
+      <div class="u-foot"><span style="color:var(--muted)">6 Periods</span><span style="color:var(--accent)" id="u1p">0%</span></div>
+    </div>
+    <div class="unit-card" style="--u-color:var(--accent2)" onclick="go('programs',document.querySelectorAll('.nav-i')[6])">
+      <div class="u-num">Code Lab</div>
+      <div class="u-title">Programs &amp; Practice</div>
+      <div class="u-topics">7 programs with run &amp; output, coding exercises, debug challenges, and guess-the-output MCQs</div>
+      <div class="u-foot"><span style="color:var(--muted)">Interactive</span><span class="badge badge-y">Run Code</span></div>
+    </div>
+    <div class="unit-card" style="--u-color:var(--accent3)" onclick="go('mindmap',document.querySelectorAll('.nav-i')[3])">
+      <div class="u-num">Visual</div>
+      <div class="u-title">Mind Map &amp; Diagrams</div>
+      <div class="u-topics">Complete mind map, UML class diagrams, concept visualizations, and algorithm flowcharts</div>
+      <div class="u-foot"><span style="color:var(--muted)">Visual Learning</span><span class="badge badge-b">Interactive</span></div>
+    </div>
+    <div class="unit-card" style="--u-color:var(--accent4)" onclick="go('interview',document.querySelectorAll('.nav-i')[11])">
+      <div class="u-num">Prepare</div>
+      <div class="u-title">Interview &amp; Scenarios</div>
+      <div class="u-topics">Common interview questions, scenario-based problems, and project ideas for deeper understanding</div>
+      <div class="u-foot"><span style="color:var(--muted)">Career Ready</span><span class="badge badge-r">20+ Qs</span></div>
+    </div>
+  </div>
+  <div style="margin-top:28px;">
+    <div class="card-t" style="margin-bottom:14px;">Quick Actions</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn btn-p" onclick="go('guessoutput',document.querySelectorAll('.nav-i')[7])">&#10067; Guess Output Quiz</button>
+      <button class="btn btn-s" onclick="go('flashcards',document.querySelectorAll('.nav-i')[9])">&#9733; Flash Cards</button>
+      <button class="btn btn-s" onclick="go('debug',document.querySelectorAll('.nav-i')[8])">&#8856; Debug Challenge</button>
+      <button class="btn btn-s" onclick="go('scenario',document.querySelectorAll('.nav-i')[10])">&#8226; Scenario Qs</button>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ LESSON PLAN ════════════════ -->
+<section class="page" id="pg-lessonplan">
+  <div class="pg-head">
+    <div class="pg-tag">// Lesson Plan</div>
+    <div class="pg-title">Weekly Schedule</div>
+    <div class="pg-desc">Track each topic. Check off completed items to update your progress bar.</div>
+  </div>
+  <table class="tbl" id="lp-table">
+    <thead><tr><th style="width:36px;"></th><th>Hour</th><th>Topic</th><th>Key Concepts</th><th>Activity</th><th>Action</th></tr></thead>
+    <tbody id="lp-body"></tbody>
+  </table>
+</section>
+
+
+<!-- ════════════════ TOPICS ════════════════ -->
+<section class="page" id="pg-topics">
+  <div class="pg-head">
+    <div class="pg-tag">// Topics</div>
+    <div class="pg-title">Unit I Topics</div>
+    <div class="pg-desc">Detailed study notes for each topic. Click any topic card to explore the full content.</div>
+  </div>
+  <div id="topics-list"></div>
+</section>
+
+
+<!-- ════════════════ NOTES ════════════════ -->
+<section class="page" id="pg-notes">
+  <div class="pg-head">
+    <div class="pg-tag">// Notes</div>
+    <div class="pg-title">My Study Notes</div>
+    <div class="pg-desc">Capture important concepts. Saved to your browser automatically.</div>
+  </div>
+  <div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;">
+    <button class="btn btn-p" onclick="openModal('note-modal')">+ Add Note</button>
+    <input class="form-i" style="max-width:260px;" placeholder="Search notes..." id="note-search" oninput="renderNotes()"/>
+  </div>
+  <div class="note-grid" id="note-grid"></div>
+  <div class="note-empty" id="note-empty">No notes yet. Click "+ Add Note" to start!</div>
+</section>
+
+<!-- ════════════════ MIND MAP ════════════════ -->
+<section class="page" id="pg-mindmap">
+  <div class="pg-head">
+    <div class="pg-tag">// Mind Map</div>
+    <div class="pg-title">Complete Topic Map</div>
+    <div class="pg-desc">Visual overview of all Unit I topics. Click any branch to navigate.</div>
+  </div>
+  <div class="mm-container" id="mm-container">
+    <svg id="mm-svg" viewBox="0 0 1100 700" preserveAspectRatio="xMidYMid meet">
+      <g id="mm-viewport"></g>
+    </svg>
+    <div class="mm-controls">
+      <button class="mm-btn" onclick="mmZoomIn()" title="Zoom In">+</button>
+      <button class="mm-btn" onclick="mmZoomOut()" title="Zoom Out">−</button>
+      <button class="mm-btn" onclick="mmReset()" title="Reset">⟲</button>
+    </div>
+    <div class="mm-tooltip" id="mm-tooltip"></div>
+  </div>
+</section>
+
+<!-- ════════════════ VISUALIZATIONS ════════════════ -->
+<section class="page" id="pg-visualize">
+  <div class="pg-head">
+    <div class="pg-tag">// Visualizations</div>
+    <div class="pg-title">Concept Visualizer</div>
+    <div class="pg-desc">Interactive diagrams for every key concept in Unit I.</div>
+  </div>
+  <div id="viz-list"></div>
+</section>
+
+<!-- ════════════════ FLOWCHARTS ════════════════ -->
+<section class="page" id="pg-flowchart">
+  <div class="pg-head">
+    <div class="pg-tag">// Flowcharts</div>
+    <div class="pg-title">Algorithm &amp; Concept Flows</div>
+    <div class="pg-desc">Visual flowcharts for Java program execution and control structures.</div>
+  </div>
+  <div class="tabs">
+    <div class="tab active" onclick="flowTab('exec',this)">Program Execution</div>
+    <div class="tab" onclick="flowTab('ifelse',this)">If-Else</div>
+    <div class="tab" onclick="flowTab('forloop',this)">For Loop</div>
+    <div class="tab" onclick="flowTab('switch',this)">Switch</div>
+    <div class="tab" onclick="flowTab('oop',this)">OOP Flow</div>
+  </div>
+  <div id="flow-display"></div>
+</section>
+
+<!-- ════════════════ CLASS DIAGRAMS ════════════════ -->
+<section class="page" id="pg-classdiagram">
+  <div class="pg-head">
+    <div class="pg-tag">// Class Diagrams</div>
+    <div class="pg-title">UML Class Diagrams for OOP</div>
+    <div class="pg-desc">Visual representation of class relationships, inheritance, and encapsulation.</div>
+  </div>
+  <div class="tabs">
+    <div class="tab active" onclick="umlTab('encap',this)">Encapsulation</div>
+    <div class="tab" onclick="umlTab('inherit',this)">Inheritance</div>
+    <div class="tab" onclick="umlTab('poly',this)">Polymorphism</div>
+    <div class="tab" onclick="umlTab('abstract',this)">Abstraction</div>
+  </div>
+  <div id="uml-display"></div>
+</section>
+
+<!-- ════════════════ PROGRAMS ════════════════ -->
+<section class="page" id="pg-programs">
+  <div class="pg-head">
+    <div class="pg-tag">// Programs</div>
+    <div class="pg-title">Interactive Java Programs</div>
+    <div class="pg-desc">Select a program and click Run to see the output instantly.</div>
+  </div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;align-items:center;">
+    <select class="form-s" style="max-width:300px;" id="prog-picker" onchange="loadProg(this.value)"></select>
+    <button class="btn btn-p" onclick="runCode()">&#9654; Run Code</button>
+    <button class="btn btn-s btn-sm" onclick="resetProg()">&#8634; Reset</button>
+  </div>
+  <div class="grid2" id="prog-layout">
+    <div>
+      <div class="code-editor">
+        <div class="editor-bar"><div class="editor-dots"><span></span><span></span><span></span></div><div class="editor-lang">Java</div></div>
+        <textarea class="code-area" id="code-area" spellcheck="false"></textarea>
+      </div>
+    </div>
+    <div>
+<div id="input-area" style="display:none;"></div>
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;">&#128228; Output</div>
+        <div class="output-box wait" id="output-box">// Click &#9654; Run Code to execute</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ GUESS OUTPUT ════════════════ -->
+<section class="page" id="pg-guessoutput">
+  <div class="pg-head">
+    <div class="pg-tag">// Guess Output</div>
+    <div class="pg-title">Predict the Output MCQs</div>
+    <div class="pg-desc">Read the code and guess what it prints. Tests deep understanding of Java semantics.</div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+    <div style="display:flex;gap:8px;align-items:center;">
+      <span class="badge badge-g" id="gq-score">Score: 0</span>
+      <span class="badge badge-b" id="gq-num">Q 1 / 10</span>
+    </div>
+    <button class="btn btn-s btn-sm" onclick="resetGuess()">&#8634; Restart</button>
+  </div>
+  <div class="glass" id="gq-card"></div>
+</section>
+
+<!-- ════════════════ CODING PRACTICE ════════════════ -->
+<section class="page" id="pg-coding">
+  <div class="pg-head">
+    <div class="pg-tag">// Coding Practice</div>
+    <div class="pg-title">Hands-on Exercises</div>
+    <div class="pg-desc">Practice writing Java programs. Each exercise targets specific Unit I concepts.</div>
+  </div>
+  <div id="coding-list"></div>
+</section>
+
+<!-- ════════════════ DEBUG CODE ════════════════ -->
+<section class="page" id="pg-debug">
+  <div class="pg-head">
+    <div class="pg-tag">// Debug Code</div>
+    <div class="pg-title">Find &amp; Fix the Bugs</div>
+    <div class="pg-desc">Each snippet has intentional errors. Find them, understand why they fail, and apply the fix.</div>
+  </div>
+  <div class="tabs" id="debug-tabs"></div>
+  <div id="debug-display"></div>
+</section>
+
+<!-- ════════════════ FLASH CARDS ════════════════ -->
+<section class="page" id="pg-flashcards">
+  <div class="pg-head">
+    <div class="pg-tag">// Flash Cards</div>
+    <div class="pg-title">Quick Revision Cards</div>
+    <div class="pg-desc">Click a card to flip and reveal the answer. Perfect for last-minute revision.</div>
+  </div>
+  <div class="fc-grid" id="fc-grid"></div>
+</section>
+
+<!-- ════════════════ SCENARIO QUESTIONS ════════════════ -->
+<section class="page" id="pg-scenario">
+  <div class="pg-head">
+    <div class="pg-tag">// Scenario Questions</div>
+    <div class="pg-title">Real-World Scenarios</div>
+    <div class="pg-desc">Apply your Java knowledge to solve practical problems described as scenarios.</div>
+  </div>
+  <div id="scenario-list"></div>
+</section>
+
+<!-- ════════════════ INTERVIEW TOPICS ════════════════ -->
+<section class="page" id="pg-interview">
+  <div class="pg-head">
+    <div class="pg-tag">// Interview Topics</div>
+    <div class="pg-title">Common Interview Questions</div>
+    <div class="pg-desc">Frequently asked Java questions at campus placements and technical interviews.</div>
+  </div>
+  <div id="int-list"></div>
+</section>
+
+<!-- ════════════════ PROJECTS ════════════════ -->
+<section class="page" id="pg-projects">
+  <div class="pg-head">
+    <div class="pg-tag">// Projects</div>
+    <div class="pg-title">Project Ideas</div>
+    <div class="pg-desc">Apply Unit I concepts by building real applications. Track your progress.</div>
+  </div>
+  <div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;">
+    <button class="btn btn-p" onclick="openModal('proj-modal')">+ Add Project</button>
+    <select class="form-s" style="max-width:160px;font-size:12px;" onchange="filterProj(this.value)">
+      <option value="all">All Status</option><option value="todo">To-Do</option><option value="progress">In Progress</option><option value="done">Done</option>
+    </select>
+  </div>
+  <div id="proj-list"></div>
+</section>
+
+</main>
+
+<!-- ═══════ MODALS ═══════ -->
+<div class="modal-bg" id="note-modal">
+  <div class="modal">
+    <div class="modal-top"><div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:2px;margin-bottom:4px;">STUDY NOTE</div><div style="font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;">New Note</div></div><button class="modal-x" onclick="closeModal('note-modal')">&#10005;</button></div>
+    <div class="form-g"><label class="form-l">Title *</label><input class="form-i" id="n-title" placeholder="Note title"/></div>
+    <div class="form-g"><label class="form-l">Topic</label><select class="form-s" id="n-topic"><option>OOP Concepts</option><option>Java Basics</option><option>Data Types</option><option>Control Statements</option><option>Arrays</option><option>Classes &amp; Objects</option><option>I/O</option><option>Other</option></select></div>
+    <div class="form-g"><label class="form-l">Content *</label><textarea class="form-t" id="n-content" style="min-height:120px;" placeholder="Write your notes..."></textarea></div>
+    <div style="display:flex;gap:10px;justify-content:flex-end;"><button class="btn btn-s" onclick="closeModal('note-modal')">Cancel</button><button class="btn btn-p" onclick="saveNote()">Save Note</button></div>
+  </div>
+</div>
+<div class="modal-bg" id="proj-modal">
+  <div class="modal">
+    <div class="modal-top"><div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent2);letter-spacing:2px;margin-bottom:4px;">NEW PROJECT</div><div style="font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;">Add Project</div></div><button class="modal-x" onclick="closeModal('proj-modal')">&#10005;</button></div>
+    <div class="form-g"><label class="form-l">Project Title *</label><input class="form-i" id="p-title" placeholder="e.g. Student Management System"/></div>
+    <div class="form-g"><label class="form-l">Description</label><textarea class="form-t" id="p-desc" placeholder="Brief description..."></textarea></div>
+    <div class="grid2">
+      <div class="form-g"><label class="form-l">Concept</label><select class="form-s" id="p-co"><option>Classes &amp; Objects</option><option>Inheritance</option><option>Arrays</option><option>I/O</option><option>Encapsulation</option></select></div>
+      <div class="form-g"><label class="form-l">Status</label><select class="form-s" id="p-status"><option value="todo">To-Do</option><option value="progress">In Progress</option><option value="done">Done</option></select></div>
+    </div>
+    <div style="display:flex;gap:10px;justify-content:flex-end;"><button class="btn btn-s" onclick="closeModal('proj-modal')">Cancel</button><button class="btn btn-p" onclick="saveProj()">Save Project</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     JAVASCRIPT — ALL DATA & LOGIC
+═══════════════════════════════════════════════════════════════════════ -->
+<script src="script.js"></script>
+</body>
+</html>
