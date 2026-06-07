@@ -73,7 +73,6 @@
 <!-- ════════════════ DASHBOARD ════════════════ -->
 <section class="page active" id="pg-dashboard">
   <div class="pg-head">
-    <div class="pg-tag">// Dashboard</div>
     <div class="pg-title">Foundations of Java</div>
     <div class="pg-desc">Your interactive learning hub for Unit I. Track progress, practice code, visualize concepts, and master Java fundamentals.</div>
   </div>
@@ -123,8 +122,7 @@
 <!-- ════════════════ LESSON PLAN ════════════════ -->
 <section class="page" id="pg-lessonplan">
   <div class="pg-head">
-    <div class="pg-tag">// Lesson Plan</div>
-    <div class="pg-title">Weekly Schedule</div>
+    <div class="pg-title">Lesson Plan</div>
     <div class="pg-desc">Track each topic. Check off completed items to update your progress bar.</div>
   </div>
   <table class="tbl" id="lp-table">
@@ -137,7 +135,6 @@
 <!-- ════════════════ TOPICS ════════════════ -->
 <section class="page" id="pg-topics">
   <div class="pg-head">
-    <div class="pg-tag">// Topics</div>
     <div class="pg-title">Unit I Topics</div>
     <div class="pg-desc">Detailed study notes for each topic. Click any topic card to explore the full content.</div>
   </div>
@@ -148,7 +145,6 @@
 <!-- ════════════════ NOTES ════════════════ -->
 <section class="page" id="pg-notes">
   <div class="pg-head">
-    <div class="pg-tag">// Notes</div>
     <div class="pg-title">My Study Notes</div>
     <div class="pg-desc">Capture important concepts. Saved to your browser automatically.</div>
   </div>
@@ -163,7 +159,6 @@
 <!-- ════════════════ MIND MAP ════════════════ -->
 <section class="page" id="pg-mindmap">
   <div class="pg-head">
-    <div class="pg-tag">// Mind Map</div>
     <div class="pg-title">Complete Topic Map</div>
     <div class="pg-desc">Visual overview of all Unit I topics. Click any branch to navigate.</div>
   </div>
@@ -183,7 +178,6 @@
 <!-- ════════════════ VISUALIZATIONS ════════════════ -->
 <section class="page" id="pg-visualize">
   <div class="pg-head">
-    <div class="pg-tag">// Visualizations</div>
     <div class="pg-title">Concept Visualizer</div>
     <div class="pg-desc">Interactive diagrams for every key concept in Unit I.</div>
   </div>
@@ -193,7 +187,6 @@
 <!-- ════════════════ FLOWCHARTS ════════════════ -->
 <section class="page" id="pg-flowchart">
   <div class="pg-head">
-    <div class="pg-tag">// Flowcharts</div>
     <div class="pg-title">Algorithm &amp; Concept Flows</div>
     <div class="pg-desc">Visual flowcharts for Java program execution and control structures.</div>
   </div>
@@ -210,7 +203,6 @@
 <!-- ════════════════ CLASS DIAGRAMS ════════════════ -->
 <section class="page" id="pg-classdiagram">
   <div class="pg-head">
-    <div class="pg-tag">// Class Diagrams</div>
     <div class="pg-title">UML Class Diagrams for OOP</div>
     <div class="pg-desc">Visual representation of class relationships, inheritance, and encapsulation.</div>
   </div>
@@ -226,28 +218,74 @@
 <!-- ════════════════ PROGRAMS ════════════════ -->
 <section class="page" id="pg-programs">
   <div class="pg-head">
-    <div class="pg-tag">// Programs</div>
     <div class="pg-title">Interactive Java Programs</div>
-    <div class="pg-desc">Select a program and click Run to see the output instantly.</div>
+    <div class="pg-desc">Select a program, enter inputs, and run to see the output instantly.</div>
   </div>
-  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;align-items:center;">
-    <select class="form-s" style="max-width:300px;" id="prog-picker" onchange="loadProg(this.value)"></select>
-    <button class="btn btn-p" onclick="runCode()">&#9654; Run Code</button>
-    <button class="btn btn-s btn-sm" onclick="resetProg()">&#8634; Reset</button>
-    <button class="btn btn-s btn-sm" onclick="copyCode()">&#128203; Copy</button>
+
+  <!-- Program Selector Bar -->
+  <div class="prog-selector-bar">
+    <div class="prog-select-wrap">
+      <label class="prog-select-label">Select Program</label>
+      <select class="prog-select" id="prog-picker" onchange="loadProg(this.value)"></select>
+    </div>
+    <div class="prog-actions">
+      <button class="btn btn-p" onclick="runCode()">
+        <span>&#9654;</span> Run Code
+      </button>
+      <button class="btn btn-s" onclick="resetProg()" title="Reset Output">
+        <span>&#8634;</span> Reset
+      </button>
+      <button class="btn btn-s" onclick="copyCode()" title="Copy to Clipboard">
+        <span>&#128203;</span> Copy
+      </button>
+    </div>
   </div>
-  <div class="grid2" id="prog-layout">
-    <div>
-      <div class="code-editor">
-        <div class="editor-bar"><div class="editor-dots"><span></span><span></span><span></span></div><div class="editor-lang">Java</div></div>
-        <textarea class="code-area" id="code-area" spellcheck="false" readonly></textarea>
+
+  <!-- Main Editor Layout -->
+  <div class="prog-workspace">
+    <!-- Left: Code Editor -->
+    <div class="prog-code-panel">
+      <div class="prog-panel-header">
+        <div class="prog-panel-title">
+          <span class="prog-dot prog-dot-red"></span>
+          <span class="prog-dot prog-dot-yellow"></span>
+          <span class="prog-dot prog-dot-green"></span>
+          <span class="prog-panel-name">Source Code</span>
+        </div>
+        <span class="prog-lang-badge">Java</span>
+      </div>
+      <div class="prog-code-wrap">
+        <textarea class="prog-code-area" id="code-area" spellcheck="false" readonly></textarea>
       </div>
     </div>
-    <div>
-<div id="input-area" style="display:none;"></div>
-      <div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;">&#128228; Output</div>
-        <div class="output-box wait" id="output-box">// Click &#9654; Run Code to execute</div>
+
+    <!-- Right: I/O Panel -->
+    <div class="prog-io-panel">
+      <!-- Inputs Section -->
+      <div class="prog-input-section" id="input-section">
+        <div class="prog-panel-header prog-panel-header-io">
+          <div class="prog-panel-title">
+            <span class="prog-io-icon">&#128221;</span>
+            <span class="prog-panel-name">Program Inputs</span>
+          </div>
+        </div>
+        <div class="prog-inputs-wrap" id="input-area">
+          <!-- Inputs injected here -->
+        </div>
+      </div>
+
+      <!-- Output Section -->
+      <div class="prog-output-section">
+        <div class="prog-panel-header prog-panel-header-out">
+          <div class="prog-panel-title">
+            <span class="prog-io-icon">&#128228;</span>
+            <span class="prog-panel-name">Console Output</span>
+          </div>
+          <span class="prog-status" id="prog-status">Ready</span>
+        </div>
+        <div class="prog-output-wrap">
+          <pre class="prog-output wait" id="output-box">// Click "Run Code" to execute the program</pre>
+        </div>
       </div>
     </div>
   </div>
@@ -256,7 +294,6 @@
 <!-- ════════════════ GUESS OUTPUT ════════════════ -->
 <section class="page" id="pg-guessoutput">
   <div class="pg-head">
-    <div class="pg-tag">// Guess Output</div>
     <div class="pg-title">Predict the Output MCQs</div>
     <div class="pg-desc">Read the code and guess what it prints. Tests deep understanding of Java semantics.</div>
   </div>
@@ -273,7 +310,6 @@
 <!-- ════════════════ CODING PRACTICE ════════════════ -->
 <section class="page" id="pg-coding">
   <div class="pg-head">
-    <div class="pg-tag">// Coding Practice</div>
     <div class="pg-title">Hands-on Exercises</div>
     <div class="pg-desc">Practice writing Java programs. Each exercise targets specific Unit I concepts.</div>
   </div>
@@ -283,7 +319,6 @@
 <!-- ════════════════ DEBUG CODE ════════════════ -->
 <section class="page" id="pg-debug">
   <div class="pg-head">
-    <div class="pg-tag">// Debug Code</div>
     <div class="pg-title">Find &amp; Fix the Bugs</div>
     <div class="pg-desc">Each snippet has intentional errors. Find them, understand why they fail, and apply the fix.</div>
   </div>
@@ -294,7 +329,6 @@
 <!-- ════════════════ FLASH CARDS ════════════════ -->
 <section class="page" id="pg-flashcards">
   <div class="pg-head">
-    <div class="pg-tag">// Flash Cards</div>
     <div class="pg-title">Quick Revision Cards</div>
     <div class="pg-desc">Click a card to flip and reveal the answer. Perfect for last-minute revision.</div>
   </div>
@@ -304,7 +338,6 @@
 <!-- ════════════════ SCENARIO QUESTIONS ════════════════ -->
 <section class="page" id="pg-scenario">
   <div class="pg-head">
-    <div class="pg-tag">// Scenario Questions</div>
     <div class="pg-title">Real-World Scenarios</div>
     <div class="pg-desc">Apply your Java knowledge to solve practical problems described as scenarios.</div>
   </div>
@@ -314,7 +347,6 @@
 <!-- ════════════════ INTERVIEW TOPICS ════════════════ -->
 <section class="page" id="pg-interview">
   <div class="pg-head">
-    <div class="pg-tag">// Interview Topics</div>
     <div class="pg-title">Common Interview Questions</div>
     <div class="pg-desc">Frequently asked Java questions at campus placements and technical interviews.</div>
   </div>
@@ -324,7 +356,6 @@
 <!-- ════════════════ PROJECTS ════════════════ -->
 <section class="page" id="pg-projects">
   <div class="pg-head">
-    <div class="pg-tag">// Projects</div>
     <div class="pg-title">Project Ideas</div>
     <div class="pg-desc">Apply Unit I concepts by building real applications. Track your progress.</div>
   </div>

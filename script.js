@@ -1098,9 +1098,12 @@ function runCode() {
   var i = parseInt(sel.value);
   var prog = PROGS[i];
   var out = document.getElementById('output-box');
+  var status = document.getElementById('prog-status');
 
   out.textContent = 'Compiling & Running...';
-  out.className = 'output-box wait';
+  out.className = 'prog-output wait';
+  status.textContent = 'Running...';
+  status.className = 'prog-status running';
 
   setTimeout(function () {
     var vals = {};
@@ -1113,14 +1116,20 @@ function runCode() {
     }
     var result = prog.run(vals);
     out.textContent = result;
-    out.className = 'output-box';
+    out.className = 'prog-output';
+    status.textContent = 'Done';
+    status.className = 'prog-status success';
     toast('Executed successfully!');
   }, 600);
 }
 
 function resetProg() {
-  document.getElementById('output-box').textContent = '// Click &#9654; Run Code to execute';
-  document.getElementById('output-box').className = 'output-box wait';
+  var out = document.getElementById('output-box');
+  var status = document.getElementById('prog-status');
+  out.textContent = '// Click "Run Code" to execute the program';
+  out.className = 'prog-output wait';
+  status.textContent = 'Ready';
+  status.className = 'prog-status';
 }
 
 function copyCode() {
