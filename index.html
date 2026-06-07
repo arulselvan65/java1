@@ -9,9 +9,6 @@
 </head>
 <body>
 
-</head>
-<body>
-
 <!-- ═══════ NAVBAR ═══════ -->
 <nav class="navbar" id="navbar">
   <div class="navbar-brand">
@@ -237,12 +234,13 @@
     <select class="form-s" style="max-width:300px;" id="prog-picker" onchange="loadProg(this.value)"></select>
     <button class="btn btn-p" onclick="runCode()">&#9654; Run Code</button>
     <button class="btn btn-s btn-sm" onclick="resetProg()">&#8634; Reset</button>
+    <button class="btn btn-s btn-sm" onclick="copyCode()">&#128203; Copy</button>
   </div>
   <div class="grid2" id="prog-layout">
     <div>
       <div class="code-editor">
         <div class="editor-bar"><div class="editor-dots"><span></span><span></span><span></span></div><div class="editor-lang">Java</div></div>
-        <textarea class="code-area" id="code-area" spellcheck="false"></textarea>
+        <textarea class="code-area" id="code-area" spellcheck="false" readonly></textarea>
       </div>
     </div>
     <div>

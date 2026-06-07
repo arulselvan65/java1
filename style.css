@@ -304,3 +304,7 @@ body::before{content:'';position:fixed;inset:0;background:
   .stat-row{grid-template-columns:1fr 1fr;}
   .grid2,.grid3{grid-template-columns:1fr;}
 }
+
+
+/* Readonly code area */
+.code-area[readonly]{cursor:default;}
